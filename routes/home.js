@@ -1,4 +1,5 @@
 const router = require('koa-router')()
+const userInfoController = require('../controllers/user-info')
 
 const routers = router
     .get('/', async (ctx) => {
@@ -7,5 +8,7 @@ const routers = router
             title
         })
     })
+    .post('/signup', userInfoController.signUp)
+    .post('/signin', userInfoController.signIn)
 
 module.exports = routers

@@ -1,4 +1,4 @@
 module.exports = {
-  'database': 'mongodb://localhost:27017/node-login',
-  'port': '3000',
+  database: 'mongodb://localhost:27017/node-login',
+  port: '3000',
 }

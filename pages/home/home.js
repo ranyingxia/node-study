@@ -1,52 +1,47 @@
 import React from 'react'
-import { Form, Icon, Input, Button, Checkbox } from 'antd'
-const FormItem = Form.Item
+import { Layout, Menu, Tabs, Form } from 'antd'
+import LoginTab from '../components/LoginTab'
+import RegisterTab from '../components/RegisterTab'
 
-class NormalLoginForm extends React.Component {
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
+const { Header, Content } = Layout
+const TabPane = Tabs.TabPane
+class Home extends React.Component {
+  handleClick = (item) => {
+    const path = item.key
+    location.href = path
   }
   render() {
-    const { getFieldDecorator } = this.props.form;
     return (
-      <Form onSubmit={this.handleSubmit} className="login-form">
-        <FormItem>
-          {getFieldDecorator('userName', {
-            rules: [{ required: true, message: 'Please input your username!' }],
-          })(
-            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
-          )}
-        </FormItem>
-        <FormItem>
-          {getFieldDecorator('password', {
-            rules: [{ required: true, message: 'Please input your Password!' }],
-          })(
-            <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
-          )}
-        </FormItem>
-        <FormItem>
-          {getFieldDecorator('remember', {
-            valuePropName: 'checked',
-            initialValue: true,
-          })(
-            <Checkbox>Remember me</Checkbox>
-          )}
-          <a className="login-form-forgot" href="">Forgot password</a>
-          <Button type="primary" htmlType="submit" className="login-form-button">
-            Log in
-          </Button>
-          Or <a href="">register now!</a>
-        </FormItem>
-      </Form>
-    );
+      <Layout className="layout">
+        <Header>
+          <div className="logo" />
+          <Menu
+            theme="dark"
+            mode="horizontal"
+            defaultSelectedKeys={['1']}
+            onClick={this.handleClick}
+            style={{ lineHeight: '64px' }}
+          >
+            <Menu.Item key="/home">home</Menu.Item>
+          </Menu>
+        </Header>
+        <Content style={{ padding: '50px' }}>
+          <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
+            <Tabs defaultActiveKey="1" size="small">
+              <TabPane tab="登录" key="1">
+                <LoginTab />
+              </TabPane>
+              <TabPane tab="注册" key="2">
+                <RegisterTab />
+              </TabPane>
+            </Tabs>
+          </div>
+        </Content>
+      </Layout>
+    )
   }
+
 }
 
-const WrappedNormalLoginForm = Form.create()(NormalLoginForm);
 
-export default WrappedNormalLoginForm
+export default Form.create()(Home)
