@@ -1,10 +1,6 @@
-/**
- * Created by linyuhua on 2017/5/15.
- */
 import React from 'react'
 import { Form, Input, Checkbox, Button, Message } from 'antd'
-
-import 'whatwg-fetch'
+import axios from '../util/ajax'
 
 const FormItem = Form.Item
 
@@ -36,16 +32,11 @@ class RegisterTab extends React.Component {
     const values = await this.getFormValues()
     if (values) {
       console.log(values)
-      fetch('/home/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-        },
-        body: JSON.stringify(values),
-      }).then((res) => {
-        res.json().then((res) => {
-          Message.info(res.message)
-        })
+      axios.post('/home/signup', values, () => {
+        Message.info('注册成功！')
+        location.href = '/home'
+      }, (data) => {
+        Message.info(data)
       })
     }
   }

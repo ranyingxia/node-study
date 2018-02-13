@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Icon, Input, Checkbox, Button, Message } from 'antd'
-import 'whatwg-fetch'
+import axios from '../util/ajax'
 
 const FormItem = Form.Item
 
@@ -11,19 +11,9 @@ class LoginTab extends React.Component {
     const values = await this.getFormValues()
     if (values) {
       console.log(values)
-      fetch('/home/signin', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-        },
-        body: JSON.stringify(values),
-      }).then((res) => {
-        res.json().then((res) => {
-          Message.info(res.message)
-          if (res.success) {
-            location.href = '/main'
-          }
-        })
+      axios.post('/home/signin', values, () => {
+        Message.info('登录成功！')
+        location.href = '/main'
       })
     }
   }

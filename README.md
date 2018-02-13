@@ -3,6 +3,7 @@
 ### 技术选型
 
 * React
+* axios
 * webpack
 * node
 * koa

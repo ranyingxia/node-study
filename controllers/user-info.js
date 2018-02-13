@@ -1,6 +1,3 @@
-/**
- * Created by linyuhua on 2017/5/17.
- */
 const User = require('./../models/user')
 
 module.exports = {
@@ -53,7 +50,7 @@ module.exports = {
       } else {
         // 判断密码是否正确
         if (password === user.password) {
-          ctx.body = { success: true, message: '登入成功' }
+          ctx.body = { success: true, message: '登入成功', data: {} }
         } else {
           ctx.body = { success: false, message: '密码错误' }
         }
